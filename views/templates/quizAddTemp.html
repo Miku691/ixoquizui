@@ -1,0 +1,63 @@
+<!-- dialogTemplate.html -->
+<md-dialog aria-label="Add Details" style="width: 50%;">
+    <md-dialog-content>
+        <div layout="column" layout-padding>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Category</label>
+                <md-select ng-model="ixoQuiz.category">
+                  <md-option ng-repeat="category in quizCategories" value="{{category}}">
+                    {{category}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                <label>Question</label>
+                <input ng-model="ixoQuiz.question">
+              </md-input-container>
+
+              <md-content>
+                <div>
+                  <md-input-container>
+                    <label>option_I</label>
+                    <input ng-model="ixoQuiz.quizOptions.option_I">
+                  </md-input-container>
+            
+                  <md-input-container>
+                    <label>option_II</label>
+                    <input ng-model="ixoQuiz.quizOptions.option_II">
+                  </md-input-container>
+
+                  <md-input-container>
+                    <label>option_II</label>
+                    <input ng-model="ixoQuiz.quizOptions.option_III">
+                  </md-input-container>
+            
+                  <md-input-container>
+                    <label>option_IV</label>
+                    <input ng-model="ixoQuiz.quizOptions.option_IV">
+                  </md-input-container>
+                </div>
+              </md-content>
+
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Correct Ans</label>
+                <input ng-model="ixoQuiz.correctAns">
+              </md-input-container>
+
+              <md-input-container class="md-block" flex-gt-sm>
+                <label>Ans Desc</label>
+                <input ng-model="ixoQuiz.ansDescription">
+              </md-input-container>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button ng-click="cancel()" class="md-primary">
+            Cancel
+        </md-button>
+        <md-button ng-click="save()" class="md-primary">
+            Save
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>
