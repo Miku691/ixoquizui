@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js'
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js'
 
 const firebaseConfig = {
   apiKey: "AIzaSyD1UCWmIfOc2_15PbcQuB1uZNuesqO9n18",
@@ -24,18 +24,41 @@ app.service('FirebaseAppService', function () {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  this.checkUserLoginState = function(){
+  this.checkUserLoginState = function () {
     let firebaseApp = initializeApp(firebaseConfig);
     const auth = getAuth(firebaseApp);
     let isLogIn = false;
-    onAuthStateChanged(auth, (user) => {
-      if(user)
-        isLogIn = true;
-      else
-        isLogIn = false;
-    });
+    // onAuthStateChanged(auth, (user) => {
+    //   if(user)
+    //     isLogIn = true;
+    //   else
+    //     isLogIn = false;
+    // });
 
-    return isLogIn;
+    // return isLogIn;
+
+    return new Promise((resolve) => {
+      onAuthStateChanged(auth, (user) => {
+        if (user)
+          resolve(user)
+        else
+          resolve(null)
+      });
+    });
+  }
+
+  this.userSignOut = function () {
+    let firebaseApp = initializeApp(firebaseConfig);
+    const auth = getAuth(firebaseApp);
+    signOut(auth)
+      .then(() => {
+        alert('log out success');
+        var path = window.location.href.split("#")[0] + "#/" + 'login';
+        window.open(path, "_self");
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
 });

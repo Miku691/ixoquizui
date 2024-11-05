@@ -1,0 +1,23 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.user-avatar {
+  border-radius: 99%;
+}
+
+.sideNav{
+  cursor: pointer;
+  margin: 2px;
+}
+.sideNav:hover{
+  background-color: #1694df;
+  color: #fff;
+}
+
+.textA{
+  background-color: aqua;
+  max-height: 100vh;
+}
+

@@ -1,7 +1,5 @@
 app.controller("loginController",['$scope', 'FirebaseAppService', 
     function($scope,FirebaseAppService, $rootScope, $location){
-        
-
         $scope.login = function(){
             let firebaseApp = FirebaseAppService.firebaseAppConfig();
             FirebaseAppService.firebaseAuthSignIn(firebaseApp, $scope.email, $scope.pwd)
