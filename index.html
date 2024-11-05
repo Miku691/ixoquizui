@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IXO QUIZ DASHBOARD</title>
+
+    <!-- Load angular js files -->
+    <script src="thirdparty/angularjs/angular.min.js"></script>
+    <script src="thirdparty/angularjs/angular-route.min.js"></script>
+    <script src="thirdparty/angularjs/angular-animate.min.js"></script>
+    <script src="thirdparty/angularjs/angular-aria.min.js"></script>
+    <script src="/thirdparty/angularjs/angular-messages.min.js"></script>
+
+    <!-- Load material ui files -->
+    <script src="thirdparty/materialui/angular-material.min.js"></script>
+    <link rel="stylesheet" href="thirdparty/materialui/angular-material.min.css">
+
+    <!-- Load firebase sdk  -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script> -->
+
+    <!-- Load angular app -->
+    <script src="app.js"></script>
+
+    <!-- load service -->
+     <script type="module" src="services/firebaseConfig.js"></script>
+
+    <!-- Load Controllers -->
+     <script src="controllers/loginController.js"></script>
+     <script src="controllers/dashboardController.js"></script>
+
+</head>
+
+<body ng-app="ixoQuizUI" ng-controller="appController">
+   <!-- <p>name is <span ng-bind="student"></span></p> -->
+
+   <div ng-view ></div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<div ng-controller="loginController">
+    <div layout="row">
+        <div flex="20">
+            [flex="20"]
+            {{result}}
+        </div>
+        <div flex="70">
+            <md-card md-whiteframe="1" >
+                
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Log In</span>
+                        </md-card-title-text>
+                    </md-card-title>
+
+                    <md-input-container>
+                        <label>User Name</label>
+                        <input ng-model="email" required>
+                    </md-input-container>
+
+                    <md-input-container>
+                        <label>Password</label>
+                        <input type="password" ng-model="pwd" required>
+                    </md-input-container>
+
+                    <div>
+                        <md-button ng-click="login()" class="md-raised" type="submit">Submit</md-button>
+                      </div>
+            </md-card>
+        </div>
+        <div flex="" hide-sm="" hide-xs="">
+            [flex]
+        </div>
+    </div>
+</div>
