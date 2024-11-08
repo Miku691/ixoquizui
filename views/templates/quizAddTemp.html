@@ -1,7 +1,7 @@
 <!-- dialogTemplate.html -->
-<md-dialog aria-label="Add Details" style="width: 50%;">
+<md-dialog aria-label="Add Details" style="width: 50%;" class="draggable-dialog">
     <md-dialog-content>
-        <div layout="column" layout-padding>
+        <!-- <div layout="column" layout-padding>
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Category</label>
                 <md-select ng-model="ixoQuiz.category">
@@ -49,7 +49,73 @@
                 <label>Ans Desc</label>
                 <input ng-model="ixoQuiz.ansDescription">
               </md-input-container>
+        </div> -->
+        <div class="dialog-header" style="cursor: move;">
+          <h2>Edit Quiz</h2>
         </div>
+        <!-- Editable Quiz Form -->
+      <form name="quizForm" class="quiz-form">
+        <!-- Question Input -->
+        <md-input-container class="md-block">
+          <label>Question</label>
+          <input ng-model="ixoQuiz.question" required />
+        </md-input-container>
+
+        <!-- Quiz Options -->
+        <div class="quiz-options">
+          <div class="option-container">
+            <md-input-container class="md-block">
+              <label>Option I</label>
+              <input ng-model="ixoQuiz.quizOptions.option_I" />
+            </md-input-container>
+          </div>
+
+          <div class="option-container">
+            <md-input-container class="md-block">
+              <label>Option II</label>
+              <input ng-model="ixoQuiz.quizOptions.option_II" />
+            </md-input-container>
+          </div>
+
+          <div class="option-container">
+            <md-input-container class="md-block">
+              <label>Option III</label>
+              <input ng-model="ixoQuiz.quizOptions.option_III" />
+            </md-input-container>
+          </div>
+
+          <div class="option-container">
+            <md-input-container class="md-block">
+              <label>Option IV</label>
+              <input ng-model="ixoQuiz.quizOptions.option_IV" />
+            </md-input-container>
+          </div>
+        </div>
+
+        <!-- Correct Answer Dropdown -->
+        <md-input-container class="md-block">
+          <label>Correct Answer</label>
+          <md-select ng-model="ixoQuiz.correctAns" required>
+            <md-option value="1">Option I</md-option>
+            <md-option value="2">Option II</md-option>
+            <md-option value="3">Option III</md-option>
+            <md-option value="4">Option IV</md-option>
+          </md-select>
+        </md-input-container>
+
+        <!-- Answer Description -->
+        <md-input-container class="md-block">
+          <label>Answer Description</label>
+          <textarea ng-model="ixoQuiz.ansDescription" md-maxlength="1000"></textarea>
+        </md-input-container>
+
+        <!-- Category -->
+        <md-input-container class="md-block">
+          <label>Category</label>
+          <input ng-model="ixoQuiz.category" />
+        </md-input-container>
+      </form>
+        
     </md-dialog-content>
 
     <md-dialog-actions>

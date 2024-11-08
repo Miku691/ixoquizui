@@ -1,19 +1,22 @@
 app.service('ApiService', function($http, $rootScope) {
-    var apiUrl = 'http://localhost:8080/api/quiz/add'; 
+   
 
-    this.saveDialogData = function(data) {
+    this.performPostApiCall = function(apiUrl, data) {
         return $http.post(apiUrl, data); 
     };
 
-    this.getAllQuizes = (category) => {
-        let apiUrl = 'http://localhost:8080/api/quiz/collection/'+category;
+    this.performGetApiCall = (apiUrl) => {
+        return $http.get(apiUrl);
+    };
 
-        $http.get(apiUrl) 
-        .then(function(response) {
-            $rootScope.quizzes = response.data;
+    this.performGetApiCallSync = (apiUrl) => {
+        return $http.get(apiUrl)
+        .then(response => {
+            return response.data
         })
-        .catch(function(error) {
-            console.error("Error fetching quiz data:", error);
-        });
-    }
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            throw error;
+        })
+    };
 });

@@ -28,14 +28,6 @@ app.service('FirebaseAppService', function () {
     let firebaseApp = initializeApp(firebaseConfig);
     const auth = getAuth(firebaseApp);
     let isLogIn = false;
-    // onAuthStateChanged(auth, (user) => {
-    //   if(user)
-    //     isLogIn = true;
-    //   else
-    //     isLogIn = false;
-    // });
-
-    // return isLogIn;
 
     return new Promise((resolve) => {
       onAuthStateChanged(auth, (user) => {

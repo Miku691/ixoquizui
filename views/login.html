@@ -1,35 +1,36 @@
 <div ng-controller="loginController">
-    <div layout="row">
-        <div flex="20">
-            [flex="20"]
-            {{result}}
-        </div>
-        <div flex="70">
-            <md-card md-whiteframe="1" >
-                
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Log In</span>
-                        </md-card-title-text>
-                    </md-card-title>
+    <div layout="column" layout-align="center center" layout-fill="layout-fill">
+        <div layout="column" class="loginBox md-whiteframe-z1">
+          <md-toolbar>
+            <h2 class="md-toolbar-tools"><span>Login - to IXO Quiz</span></h2>
+          </md-toolbar>
+          <form name="loginForm">
+            <md-content layout="column" class="md-padding">
+              <md-input-container>
+                <label>Username</label>
+                <input required type="text" ng-model="loginModel.email" name="email" />
+                <div ng-messages="loginForm.email.$error">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
 
-                    <md-input-container>
-                        <label>User Name</label>
-                        <input ng-model="email" required>
-                    </md-input-container>
+              <md-input-container>
+                <label>Password</label>
+                <input required type="password" ng-model="loginModel.pwd" name="pwd" />
+                <div ng-messages="loginForm.pwd.$error" role="alert">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
 
-                    <md-input-container>
-                        <label>Password</label>
-                        <input type="password" ng-model="pwd" required>
-                    </md-input-container>
+              <div layout="row" layout-align="center center">
+                <md-button ng-click="login()" class="md-raised md-primary">Login</md-button>
+                <div flex="flex"></div>
+                <md-button href="" md-no-ink>Forgot Password</md-button>
+              </div>
+              <md-divider></md-divider>
+            </md-content>
+          </form>
+        </div>
+      </div>
 
-                    <div>
-                        <md-button ng-click="login()" class="md-raised" type="submit">Submit</md-button>
-                      </div>
-            </md-card>
-        </div>
-        <div flex="" hide-sm="" hide-xs="">
-            [flex]
-        </div>
-    </div>
 </div>

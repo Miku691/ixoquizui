@@ -3,7 +3,13 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
     function ($scope, $mdSidenav, $mdBottomSheet, $mdDialog, ApiService, FirebaseAppService,
         $rootScope,
     ) {
-        $scope.checkUserLogedState();
+        const init = () => {
+            //variable 
+            $rootScope.isEditQuiz = false;
+
+            $scope.checkUserLogedState();
+            $scope.logedInUserData = JSON.parse(localStorage.getItem('logedInUser'));
+        }
 
         $scope.toggleSidenav = function (menuId) {
             $mdSidenav(menuId).toggle();
@@ -38,16 +44,16 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
         }];
 
         $rootScope.quizzes = [
-            
+
         ];
 
-        $scope.checkAnswer = function(quiz) {
+        $scope.checkAnswer = function (quiz) {
             if (!quiz.selectedOption) {
                 alert("Please select an option.");
                 return;
             }
-            
-            var correctOption =  Object.values(quiz.quiz.quizOptions)[quiz.quiz.correctAns];
+
+            var correctOption = Object.values(quiz.quiz.quizOptions)[quiz.quiz.correctAns];
             if (quiz.selectedOption === correctOption) {
                 alert("Correct Answer!");
             } else {
@@ -75,7 +81,25 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
         }
 
         $scope.getQuizData = () => {
-            ApiService.getAllQuizes('Raja');
+            let endpoint = 'collection/Raja';
+            $rootScope.customizeAndCallAPI(endpoint, 'get', '', 'firebase', 'sync')
+            .then(function(response) {
+                $rootScope.quizzes = response.data;
+            })
+            .catch(function(error) {
+                console.error("Error fetching quiz data:", error);
+            });
+        }
+
+        $scope.editQuiz = function (index) {
+            $rootScope.isEditQuiz = true;
+            $rootScope.quizIndex = index;
+            $scope.openDialog();
+        }
+
+        $scope.addQuiz = function () {
+            $rootScope.isEditQuiz = false;
+            $scope.openDialog();
         }
 
         $scope.openDialog = function (ev) {
@@ -88,38 +112,42 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
             });
         };
 
-        function DialogController($scope, $mdDialog, ApiService) {
-            //initialize quiz object..
-            $scope.ixoQuiz = {
-                question: 'Question',
-                quizOptions:{
-                    option_I: 'today',
-                    option_II: 'noday',
-                    option_III: 'yesday',
-                    option_IV: 'okday'
-                },
-                correctAns: 2,
-                ansDescription: 'this is ans desc',
-                category: 'Demo'
+        //opn
+        function DialogController($scope, $mdDialog, ApiService, $rootScope) {
+            if ($rootScope.isEditQuiz){
+                $scope.ixoQuiz = $rootScope.quizzes[$rootScope.quizIndex].quiz;
             }
-
+            else {
+                //initialize quiz object..
+                $scope.ixoQuiz = {
+                    question: 'Question',
+                    quizOptions: {
+                        option_I: 'today',
+                        option_II: 'noday',
+                        option_III: 'yesday',
+                        option_IV: 'okday'
+                    },
+                    correctAns: 2,
+                    ansDescription: 'this is ans desc',
+                    category: 'Demo'
+                }
+            }
             $scope.quizCategories = ['Raja', 'Category I', 'Code']
 
             $scope.save = function () {
                 console.log("Form Data Saved:", $scope.ixoQuiz);
-
-                ApiService.saveDialogData($scope.ixoQuiz).then(function(response) {
-                    console.log("Dialog saved:", response);
-                    $mdDialog.hide();
-                }).catch(function(error) {
-                    console.error("Error saving dialog:", error);
-                });
+                let endpoint = 'add';
+                let type = 'post';
+                $rootScope.customizeAndCallAPI(endpoint,type, $scope.ixoQuiz, 'firebase');
+                $mdDialog.hide();
             };
 
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
         }
+
+        init();
     }]);
 
 
