@@ -11,6 +11,7 @@
   cursor: pointer;
   margin: 2px;
 }
+
 .sideNav:hover{
   background-color: #1694df;
   color: #fff;
@@ -21,3 +22,7 @@
   max-height: 100vh;
 }
 
+.custom-icon{
+  cursor: pointer;
+  fill: currentColor;
+}

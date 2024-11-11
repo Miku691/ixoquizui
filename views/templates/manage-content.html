@@ -1,0 +1,60 @@
+<section flex="">
+    <div ng-cloak>
+        <md-content style="height: 100vh; max-height: 100vh;">
+            <md-tabs md-dynamic-height class="md-primary" md-center-tabs>
+                <md-tab label="Edit Quiz">
+                    <md-content class="md-padding">
+                        <nav class="navbar bg-body-tertiary">
+                            <div class="container-fluid">
+                                <h5>Search Data By -- {{quizSearchType}}</h5>
+                                <button class="btn btn-sm btn-primary" ng-click="setQuizSearchQueryType('CATEGORY')"
+                                    type="button">Category</button>
+                                <button class="btn btn-sm btn-primary" ng-click="setQuizSearchQueryType('ID')"
+                                    type="button">Quiz Id</button>
+                                <form class="d-flex" role="search">
+                                    <input class="form-control me-2" ng-model="quizSearchOption" type="search"
+                                        placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-primary" ng-click="getQuizData()"
+                                        type="submit">Search</button>
+                                </form>
+                            </div>
+                        </nav>
+
+                        <!-- quiz content  -->
+                        <div ng-repeat="quiz in quizzes" class="d-flex justify-content-center align-items-center">
+                            <div class="card my-1"  style="width: 70%">
+                                <div class="card-body">
+                                    <div>
+                                        <h5>Q: {{quiz.quiz.question}}</h5>
+                                        <div>
+                                            <p>(A) {{quiz.quiz.quizOptions.option_I}}</p>
+                                            <p>(B) {{quiz.quiz.quizOptions.option_II}}</p>
+                                            <p>(C) {{quiz.quiz.quizOptions.option_III}}</p>
+                                            <p>(D) {{quiz.quiz.quizOptions.option_IV}}</p>
+                                        </div>
+                                        <div>
+                                            <p>Correct Ans: {{quiz.quiz.correctAns}}</p>
+                                            <p>Ans Desc: {{quiz.quiz.ansDescription}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+
+                <md-tab label="Add Category">
+                    <md-content class="md-padding">
+                        <h2 class="md-display-1">Add Category</h2>
+                        <p class="md-body-1">
+                            Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa
+                            orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in
+                            condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim,
+                            at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus.
+                        </p>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+</section>

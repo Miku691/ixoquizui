@@ -21,7 +21,7 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
             icon: 'dashboard',
         }, {
             link: (page) => $scope.insertDynamicHtmlPage(page),
-            title: 'Friends',
+            title: 'Manage',
             icon: 'group'
         }, {
             link: (page) => $scope.insertDynamicHtmlPage(page),
@@ -40,37 +40,23 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
         }, {
             link: (page) => $scope.performLogout(),
             title: 'Log out',
-            icon: 'logout'
+            icon: 'exit_to_app'
         }];
 
-        $rootScope.quizzes = [
-
-        ];
-
-        $scope.checkAnswer = function (quiz) {
-            if (!quiz.selectedOption) {
-                alert("Please select an option.");
-                return;
-            }
-
-            var correctOption = Object.values(quiz.quiz.quizOptions)[quiz.quiz.correctAns];
-            if (quiz.selectedOption === correctOption) {
-                alert("Correct Answer!");
-            } else {
-                alert("Wrong Answer! The correct answer is " + correctOption);
-            }
-        };
 
         //variables
         $scope.isDashboardActive = true;
-        $scope.isFriendsActive = false;
+        $scope.isManageActive = false;
+        $scope.activeTab = 'DASHBOARD'
         $scope.insertDynamicHtmlPage = function (page) {
-            $scope.activeTab = page.toLowerCase();
+            $scope.activeTab = page.toUpperCase();
             $scope.dashboardcontent = 'dashboard-content';
-            if ($scope.activeTab == 'dashboard')
+            if ($scope.activeTab == 'DASHBOARD'){
                 $scope.isDashboardActive = true;
-            else if ($scope.activeTab == 'friends') {
-                $scope.isFriendsActive = true;
+                $scope.isManageActive = false;
+            }
+            else if ($scope.activeTab == 'MANAGE') {
+                $scope.isManageActive = true;
                 $scope.isDashboardActive = false;
             }
         }
@@ -78,73 +64,6 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
         //perform log out func
         $scope.performLogout = () => {
             FirebaseAppService.userSignOut();
-        }
-
-        $scope.getQuizData = () => {
-            let endpoint = 'collection/Raja';
-            $rootScope.customizeAndCallAPI(endpoint, 'get', '', 'firebase', 'sync')
-            .then(function(response) {
-                $rootScope.quizzes = response.data;
-            })
-            .catch(function(error) {
-                console.error("Error fetching quiz data:", error);
-            });
-        }
-
-        $scope.editQuiz = function (index) {
-            $rootScope.isEditQuiz = true;
-            $rootScope.quizIndex = index;
-            $scope.openDialog();
-        }
-
-        $scope.addQuiz = function () {
-            $rootScope.isEditQuiz = false;
-            $scope.openDialog();
-        }
-
-        $scope.openDialog = function (ev) {
-            $mdDialog.show({
-                controller: DialogController,
-                templateUrl: '../views/templates/quizAddTemp.html',  // External template for dialog content
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true // Allow closing the dialog by clicking outside
-            });
-        };
-
-        //opn
-        function DialogController($scope, $mdDialog, ApiService, $rootScope) {
-            if ($rootScope.isEditQuiz){
-                $scope.ixoQuiz = $rootScope.quizzes[$rootScope.quizIndex].quiz;
-            }
-            else {
-                //initialize quiz object..
-                $scope.ixoQuiz = {
-                    question: 'Question',
-                    quizOptions: {
-                        option_I: 'today',
-                        option_II: 'noday',
-                        option_III: 'yesday',
-                        option_IV: 'okday'
-                    },
-                    correctAns: 2,
-                    ansDescription: 'this is ans desc',
-                    category: 'Demo'
-                }
-            }
-            $scope.quizCategories = ['Raja', 'Category I', 'Code']
-
-            $scope.save = function () {
-                console.log("Form Data Saved:", $scope.ixoQuiz);
-                let endpoint = 'add';
-                let type = 'post';
-                $rootScope.customizeAndCallAPI(endpoint,type, $scope.ixoQuiz, 'firebase');
-                $mdDialog.hide();
-            };
-
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
         }
 
         init();

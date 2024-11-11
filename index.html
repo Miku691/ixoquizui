@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="thirdparty/materialui/angular-material.min.css">
     <script src="thirdparty/materialui/angular-material-icons.min.js"></script>
 
-    <!-- Load firebase sdk  -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script> -->
+    <!-- load bootstrap files  -->
+     <script src="thirdparty/bootstrap/js/bootstrap.bundle.min.js"></script>
+     <link rel="stylesheet" href="thirdparty/bootstrap/css/bootstrap.min.css">
 
     <!-- Load angular app -->
     <script src="app.js"></script>
@@ -33,10 +33,15 @@
      <script src="controllers/loginController.js"></script>
      <script src="controllers/dashboardController.js"></script>
 
+     <!-- load template controllers  -->
+      <script src="controllers/TemplateControllers/DashboardContentController.js"></script>
+      <script src="controllers/TemplateControllers/ManageContentController.js"></script>
+
      <!-- load directive -->
-      <script src="directives/dashboardContent.js"></script>
+      <script src="directives/templatesDirective.js"></script>
 
      <!-- load css files  -->
+     <link rel="stylesheet" href="styles/general.css">
      <link rel="stylesheet" href="styles/dashboard.css">
      <link rel="stylesheet" href="styles/login.css">
 

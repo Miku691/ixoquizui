@@ -1,82 +1,100 @@
 <section flex="">
-    <div ng-cloak >
-        <md-content style="height: 100vh; max-height: 100vh;">
-          <md-tabs md-dynamic-height class="md-primary" md-center-tabs>
-            <md-tab label="Add Quiz" >
-              <md-content class="md-padding" >
-                <div layout="row">
-                    <h2 class="md-display-1">Add Quiz</h2>
-                    <md-button class="md-raised md-primary" ng-click="addQuiz()">ADD</md-button>
+  <div ng-cloak>
+    <md-content>
+      <md-tabs md-dynamic-height class="md-primary" md-center-tabs>
+        <md-tab label="Add Quiz">
+          <md-content class="md-padding">
+            <div>
+              <div class="form-floating my-2">
+                <textarea ng-model="ixoQuiz.question" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                  style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Write Your Question</label>
+              </div>
+            </div>
+            <!-- Question End -->
+
+
+
+            <!-- 4 Options Starts -->
+            <div>
+              <div class="input-group flex-nowrap my-2 col">
+                <span class="input-group-text" id="addon-wrapping">(A)</span>
+                <input ng-model="ixoQuiz.quizOptions.option_I" id="idOption1" type="text" class="form-control" placeholder="Option 1" aria-label="Username"
+                  aria-describedby="addon-wrapping">
+              </div>
+
+              <div class="input-group flex-nowrap col">
+                <span class="input-group-text" id="addon-wrapping">(B)</span>
+                <input ng-model="ixoQuiz.quizOptions.option_II" id="idOption2" type="text" class="form-control" placeholder="Option 2" aria-label="Username"
+                  aria-describedby="addon-wrapping">
+              </div>
+
+              <div class="input-group flex-nowrap my-2 col">
+                <span class="input-group-text" id="addon-wrapping">(C)</span>
+                <input ng-model="ixoQuiz.quizOptions.option_III" id="idOption3" type="text" class="form-control" placeholder="Option 3" aria-label="Username"
+                  aria-describedby="addon-wrapping">
+              </div>
+
+              <div class="input-group flex-nowrap col">
+                <span class="input-group-text" id="addon-wrapping">(D)</span>
+                <input ng-model="ixoQuiz.quizOptions.option_IV" id="idOption4" type="text" class="form-control" placeholder="Option 4" aria-label="Username"
+                  aria-describedby="addon-wrapping">
+              </div>
+              <!-- 4 Options Ends -->
+            </div>
+            <!-- Correct Answer -->
+            <div class="row">
+              <div class="col">
+                <h6>Select correct Answer</h6>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" value=1 ng-model="selectedOption" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btnradio1">(A)</label>
+
+                  <input type="radio" value=2 ng-model="selectedOption" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btnradio2">(B)</label>
+
+                  <input type="radio" value=3 ng-model="selectedOption" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btnradio3">(C)</label>
+
+                  <input type="radio" value=4 ng-model="selectedOption" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="btnradio4">(D)</label>
                 </div>
-                
-                <!-- add quiz button -->
-                <md-content class="md-padding">
-                    <md-button class="md-raised md-primary" ng-click="getQuizData()">Show Quiz</md-button>
-                    
-                    <div ng-repeat="quiz in quizzes">
-                        <md-card class="md-whiteframe-1dp" style="margin-bottom: 20px;">
-                        
-                            <md-card-header>
-                              <md-card-header-text>
-                                  <span class="md-headline">{{ quiz.quiz.question }}</span>
-                              </md-card-header-text>
+              </div>
+              <div class="col">
+                <h6>Select Category</h6>
+                <select ng-model="ixoQuiz.category" ng-init="ixoQuiz.category = quizCategories[0]" ng-options="item for item in quizCategories" class="form-select">
+                  
+                </select>
+              </div>
+            </div>
+            <!-- Correct Answer Ends-->
 
-                              <md-button class="md-icon-button" ng-click="editQuiz($index)">
-                                <md-icon>edit</md-icon>
-                              </md-button>
-                          </md-card-header>
-                          
-                            
-                            <md-card-content>
-                                <md-radio-group ng-model="quiz.selectedOption" name="options">
-                                    <md-radio-button ng-repeat="(key, value) in quiz.quiz.quizOptions" 
-                                                     ng-value="value" 
-                                                     class="md-primary">
-                                        {{ value }}
-                                    </md-radio-button>
-                                </md-radio-group>
-                                <div ng-if="quiz.selectedOption">
-                                    <p>Your selected option is: {{ quiz.selectedOption }}</p>
-                                </div>
-                            </md-card-content>
-                            
-                            <md-card-actions layout="row" layout-align="end center">
-                                <md-button class="md-primary" ng-click="checkAnswer(quiz)">
-                                    Check Answer
-                                </md-button>
-                            </md-card-actions>
-                        </md-card>
-                    </div>
-                </md-content>
+            <!-- Explanation Box Starts -->
+            <div class="form-floating my-2">
+              <textarea ng-model="ixoQuiz.ansDescription" class="form-control" placeholder="Leave a comment here" id="floatingTextarea3"
+                style="height: 100px"></textarea>
+              <label for="floatingTextarea3">Explain your Answer (If Required)</label>
+            </div>
+            <!-- Explanation End -->
 
-              </md-content>
-            </md-tab>
+            <button class="btn btn-outline-primary" ng-click="save()" id="allSubmit">Add Question</button>
 
-            <md-tab label="two">
-              <md-content class="md-padding">
-                <h2 class="md-display-1">Tab Two</h2>
-                <p class="md-body-1">
-                  Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa
-                  orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in
-                  condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim,
-                  at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus.
-                </p>
-              </md-content>
-            </md-tab>
+            <!-- add quiz button -->
+          </md-content>
+        </md-tab>
 
-            <md-tab label="three">
-              <md-content class="md-padding">
-                <h2 class="md-display-1">Tab Three</h2>
-                <p class="md-body-1">
-                  Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur
-                  posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse
-                  vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci
-                  commodo volutpat non ac est.
-                </p>
-              </md-content>
-            </md-tab>
-
-          </md-tabs>
-        </md-content>
-      </div>
+        <md-tab label="Add Category">
+          <md-content class="md-padding">
+            <h2 class="md-display-1">Add Category</h2>
+            <p class="md-body-1">
+              Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa
+              orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in
+              condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim,
+              at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus.
+            </p>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-content>
+  </div>
 </section>
