@@ -5,3 +5,7 @@
 p{
     margin: 0;
 }
+
+md-input-container{
+    margin: 5px 0;
+}

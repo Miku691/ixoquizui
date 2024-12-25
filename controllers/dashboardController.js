@@ -9,6 +9,8 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
 
             $scope.checkUserLogedState();
             $scope.logedInUserData = JSON.parse(localStorage.getItem('logedInUser'));
+
+            $scope.quizCategories = ['Raja', 'Category I', 'Code', 'Festival'];
         }
 
         $scope.toggleSidenav = function (menuId) {
@@ -64,6 +66,51 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
         //perform log out func
         $scope.performLogout = () => {
             FirebaseAppService.userSignOut();
+        }
+
+
+
+        $scope.openDialog = function (ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '../views/templates/quizAddTemp.html',  // External template for dialog content
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true // Allow closing the dialog by clicking outside
+            });
+        };
+
+        function DialogController($scope, $mdDialog, ApiService, $rootScope) {
+            if ($rootScope.isEditQuiz){
+                $scope.ixoQuiz = $rootScope.quizzes[$rootScope.quizIndex].quiz;
+            }
+            else {
+                $scope.ixoQuiz = $rootScope.saveIxoQuizData;
+            }
+    
+            $scope.save = function () {
+                console.log("Form Data Saved:", $scope.ixoQuiz);
+                let endpoint;
+                let type;
+                if($rootScope.isEditQuiz){
+                    endpoint = 'update';
+                    type = 'put';
+                    $scope.editIxoQuiz = $rootScope.quizzes[$rootScope.quizIndex];
+                    $scope.editIxoQuiz.quiz = $scope.ixoQuiz;
+                    $rootScope.customizeAndCallAPI(endpoint,type, $scope.editIxoQuiz, 'firebase');
+                }
+                else{
+                    endpoint = 'add';
+                    type = 'post';
+                    $rootScope.customizeAndCallAPI(endpoint,type, $scope.ixoQuiz, 'firebase');
+                }
+
+                $mdDialog.hide();
+            };
+    
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
         }
 
         init();

@@ -6,7 +6,7 @@
           </md-toolbar>
           <form name="loginForm">
             <md-content layout="column" class="md-padding">
-              <md-input-container>
+              <md-input-container class="custom-input">
                 <label>Username</label>
                 <input required type="text" ng-model="loginModel.email" name="email" />
                 <div ng-messages="loginForm.email.$error">
@@ -14,7 +14,7 @@
                 </div>
               </md-input-container>
 
-              <md-input-container>
+              <md-input-container class="custom-input">
                 <label>Password</label>
                 <input required type="password" ng-model="loginModel.pwd" name="pwd" />
                 <div ng-messages="loginForm.pwd.$error" role="alert">

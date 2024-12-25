@@ -25,7 +25,7 @@ app.controller('appController', ($scope, $rootScope, FirebaseAppService, ApiServ
 
         //define service call details
         $scope.baseUrlFirebaseService = 'http://localhost:8080/api/quiz/';
-        $scope.baseUrlSqliteService = 'http://localhost:9090/api/';
+        $scope.baseUrlSqliteService = 'http://localhost:9091/api/';
         $scope.checkUserLogedState();
     }
 
@@ -39,7 +39,6 @@ app.controller('appController', ($scope, $rootScope, FirebaseAppService, ApiServ
             ApiService.performPostApiCall($scope.serviceApi, data)
             .then(function (response) {
                 console.log("Dialog saved:", response);
-                $mdDialog.hide();
             })
             .catch(function (error) {
                 console.error("Error saving dialog:", error);
@@ -50,6 +49,25 @@ app.controller('appController', ($scope, $rootScope, FirebaseAppService, ApiServ
                 return ApiService.performGetApiCallSync($scope.serviceApi);
             else if(callingType === 'sync')
                 return ApiService.performGetApiCall($scope.serviceApi);
+        }
+        else if(type === 'put'){
+            ApiService.performPutApiCall($scope.serviceApi, data)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+
+        else if(type === 'delete'){
+            ApiService.performDeleteApiCall($scope.serviceApi)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         }
     }
 

@@ -1,24 +1,52 @@
 <section flex="">
     <div ng-cloak>
-        <md-content style="height: 100vh; max-height: 100vh;">
+        <md-content>
             <md-tabs md-dynamic-height class="md-primary" md-center-tabs>
                 <md-tab label="Edit Quiz">
                     <md-content class="md-padding">
-                        <nav class="navbar bg-body-tertiary">
+                        <!-- <nav class="navbar bg-body-tertiary"> -->
                             <div class="container-fluid">
                                 <h5>Search Data By -- {{quizSearchType}}</h5>
-                                <button class="btn btn-sm btn-primary" ng-click="setQuizSearchQueryType('CATEGORY')"
+                                <!-- <button class="btn btn-sm btn-primary" ng-click="setQuizSearchQueryType('CATEGORY')"
+                                    type="button">Category</button> -->
+
+                                    <!-- <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-primary" ng-click="setQuizSearchQueryType('CATEGORY')">Category</button>
+                                        <button type="button" class="btn btn-sm btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                          <span class="visually-hidden">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                          <li><a class="dropdown-item">Action</a></li>
+                                          <li><a class="dropdown-item">Another action</a></li>
+                                          <li><a class="dropdown-item">Something else here</a></li>
+                                        </ul>
+                                      </div> -->
+                                      <div class="btn-group">
+                                      <select class="form-select mx-2" ng-model="searchCategoryTxt" ng-options="item for item in quizCategories" ng-change="onOptionChange()">
+                                        <option value="" disabled selected>Select an option</option>
+                                        <!-- <option value="action">Action</option>
+                                        <option value="another_action">Another action</option>
+                                        <option value="something_else">Something else here</option> -->
+                                      </select>
+
+                                        <button class="btn btn-sm btn-primary" ng-click="setQuizSearchQueryType('CATEGORY')"
                                     type="button">Category</button>
-                                <button class="btn btn-sm btn-primary" ng-click="setQuizSearchQueryType('ID')"
+                                        
+                                        <!-- Dropdown with Select options -->
+                                        
+                                      </div>
+
+                                <button class="btn btn-primary" ng-click="setQuizSearchQueryType('ID')"
                                     type="button">Quiz Id</button>
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2" ng-model="quizSearchOption" type="search"
+
+                                <form class="d-flex my-2" role="search">
+                                    <input class="form-control me-2" ng-disabled="isCategorySearch" ng-model="quizSearchOption" type="search"
                                         placeholder="Search" aria-label="Search">
                                     <button class="btn btn-outline-primary" ng-click="getQuizData()"
                                         type="submit">Search</button>
                                 </form>
                             </div>
-                        </nav>
+                        <!-- </nav> -->
 
                         <!-- quiz content  -->
                         <div ng-repeat="quiz in quizzes" class="d-flex justify-content-center align-items-center">
@@ -35,6 +63,9 @@
                                         <div>
                                             <p>Correct Ans: {{quiz.quiz.correctAns}}</p>
                                             <p>Ans Desc: {{quiz.quiz.ansDescription}}</p>
+                                        </div>
+                                        <div>
+                                            <h5>Action : <span><button type="button" class="btn btn-light" ng-click="editQuiz($index)">Edit</button></span> | or | <button type="button" class="btn btn-light" ng-click="deleteQuiz($index)">Delete</button></h5>
                                         </div>
                                     </div>
                                 </div>

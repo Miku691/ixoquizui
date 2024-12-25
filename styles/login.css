@@ -68,3 +68,11 @@ textarea {
 .logedInUser{
   font-size: 15px;
 }
+
+.custom-input{
+  margin: 20px 0;
+}
+
+md-content{
+  height: 100vh;
+}
