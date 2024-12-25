@@ -73,7 +73,7 @@ app.controller("dashboardController", ['$scope', '$mdSidenav',
         $scope.openDialog = function (ev) {
             $mdDialog.show({
                 controller: DialogController,
-                templateUrl: '../views/templates/quizAddTemp.html',  // External template for dialog content
+                templateUrl: '../ixoquizui/views/templates/quizAddTemp.html',  // External template for dialog content
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true // Allow closing the dialog by clicking outside
